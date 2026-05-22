@@ -7,7 +7,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ ageorge2026 }}/standalone-calculator
+  IMAGE_NAME: ageorge2026/standalone-calculator
 
 jobs:
   build-and-test:
@@ -50,8 +50,8 @@ jobs:
           cache-to: type=gha,mode=max
 
       # Passes our short SHA tag down to the manifest update job below
-      outputs:
-        image_tag: ${{ steps.vars.outputs.sha_short }}
+    outputs:
+      image_tag: ${{ steps.vars.outputs.sha_short }}
 
   update-manifests:
     needs: build-and-test
@@ -62,7 +62,7 @@ jobs:
       - name: Checkout Manifests Repository (Repo 2)
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.repository_owner }}/ml-ops-manifestsml-ops-manifests # 👈 Remember to replace 'Repo2' with your actual repo name
+          repository: ${{ github.repository_owner }}/ml-ops-manifests # 👈 Remember to replace 'Repo2' with your actual repo name
           token: ${{ secrets.REPO2_WRITE_TOKEN }}
           path: repo2
 
